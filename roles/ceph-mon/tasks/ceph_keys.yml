@@ -101,14 +101,14 @@
   include: rbd_pool_pgs.yml
   when:
     - rbd_pool_exist.rc == 0
-    - global_in_ceph_conf_overrides
+    - 'global' in ceph_conf_overrides.keys()
     - ceph_conf_overrides.global.osd_pool_default_pg_num is defined
 
 - name: include rbd_pool_size.yml
   include: rbd_pool_size.yml
   when:
     - rbd_pool_exist.rc == 0
-    - global_in_ceph_conf_overrides
+    - 'global' in ceph_conf_overrides.keys()
     - ceph_conf_overrides.global.osd_pool_default_size is defined
 
 - name: create rbd pool on luminous
@@ -117,8 +117,7 @@
   failed_when: false
   when:
     - ceph_release_num.{{ ceph_release }} >= ceph_release_num.luminous
-    - global_in_ceph_conf_overrides
-    - ceph_conf_overrides.global.osd_pool_default_pg_num is defined
+    - ceph_conf_overrides.get('global', {}).get('osd_pool_default_pg_num', False) != False
     - rbd_pool_exist.rc != 0
 
 - name: include openstack_config.yml
