@@ -65,6 +65,14 @@
   tags:
     - package-install
 
+- name: check a custom repo has been set
+  fail:
+    msg: "ceph_custom_repo must be set"
+  when:
+    - ceph_origin == 'repository'
+    - ceph_repository == 'custom'
+    - ceph_custom_repo[0]['url'] == 'https://server.domain.com/ceph-custom-repo'
+
 - name: make sure monitor_interface, monitor_address or monitor_address_block is defined
   fail:
     msg: "you must set monitor_interface, monitor_address or monitor_address_block"
