@@ -542,6 +542,7 @@
         enabled: yes
       when:
         - not containerized_deployment
+        - ceph_release_num[ceph_release] >= ceph_release_num.luminous
 
   roles:
     - ceph-defaults
