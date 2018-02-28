@@ -270,7 +270,7 @@ ceph_osd_docker_cpu_limit: 1
 # WARNING /!\ DMCRYPT scenario ONLY works with Docker version 1.12.5 and above
 #
 ceph_osd_docker_devices: "{{ devices }}"
-ceph_osd_docker_prepare_env: -e OSD_JOURNAL_SIZE={{ journal_size }}
+ceph_osd_docker_prepare_env: -e OSD_JOURNAL_SIZE={{ journal_size }} -e DEBUG=verbose,stayalive
 
 # ACTIVATE DEVICE
 #
